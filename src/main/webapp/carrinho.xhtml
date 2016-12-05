@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+<ui:composition template="_template.xhtml">
+	<ui:define name="titulo">
+		<p:outputPanel>Carrinho</p:outputPanel>
+	</ui:define>
+	<ui:define name="conteudo">
+		<h:form id="formTabelaCarrinho">
+			<p:dataTable value="#{carrinhoBean.carrinho.itens}" var="item"
+				emptyMessage="Nenhum item">
+				<p:column headerText="Imagem">
+					<p:graphicImage url="#{item.getProduto().imagem}" height="70" />
+					<br />
+				</p:column>
+				<p:column headerText="Produto">
+					<h:outputText value="#{item.getProduto().nome}" />
+				</p:column>
+				<p:column headerText="Quantidade">
+					<h:outputText value="#{item.quantidade}" />
+				</p:column>
+				<p:column headerText="Preço">
+					<h:outputText value="#{item.total}">
+						<f:convertNumber type="currency" pattern="R$ #0.00"
+							currencySymbol="R$" locale="pt_BR" />
+					</h:outputText>
+				</p:column>
+				<p:column headerText="Remover">
+					<p:commandButton icon="fa fa-fw fa-remove"
+						action="#{carrinhoBean.removerItemCarrinho(item)}" process="@this"
+						update="@form">
+					</p:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<h:outputLabel value="Total" /> :
+						 <h:outputText value="#{carrinhoBean.carrinho.total}">
+						<f:convertNumber type="currency" pattern="R$ #0.00"
+							currencySymbol="R$" locale="pt_BR" />
+					</h:outputText>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+</ui:composition>
+</html>

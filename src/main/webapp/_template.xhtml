@@ -18,13 +18,12 @@
 		</h:panelGrid>
 		<p:growl id="messages" showDetail="true" autoUpdate="true" />
 		<h:form rendered="#{usuarioLogado != null}">
-			<p:menuButton value="Menu">
-				<p:menuitem value="Livros" action="livro?faces-redirect=true" icon="fa fa-fw fa-edit" />
-				<p:menuitem value="Autores" action="autor?faces-redirect=true" icon="fa fa-fw fa-edit" />
-				<p:menuitem value="Vendas" action="vendas?faces-redirect=true" icon="fa fa-fw fa-bar-chart" />
-				<p:separator />
-				<p:menuitem value="Logout" action="#{loginBean.deslogar}" icon="fa fa-fw fa-sign-out" />
-			</p:menuButton>
+			<p:menubar value="Menu" >
+				<p:menuitem value="Produtos" action="produto?faces-redirect=true" icon="fa fa-fw fa-home" />
+				<p:menuitem value="Carrinho" action="carrinho?faces-redirect=true" icon="fa fa-fw fa-cart-plus" />
+				<p:menuitem value="Usuarios" action="usuario?faces-redirect=true" icon="fa fa-fw fa-user" />
+				<p:menuitem style="position: absolute; right: 6px;" value="Logout" action="#{loginBean.deslogar}" icon="fa fa-fw fa-sign-out" />
+			</p:menubar>
 		</h:form>
 		<h1>
 			<ui:insert name="titulo"></ui:insert>

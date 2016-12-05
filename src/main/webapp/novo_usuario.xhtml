@@ -5,24 +5,25 @@
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 <ui:composition template="_template.xhtml">
 	<ui:define name="titulo">
-		<p:outputPanel>Login</p:outputPanel>
+		<p:outputPanel>Novo Usuário</p:outputPanel>
 	</ui:define>
 	<ui:define name="conteudo">
-		<p:messages globalOnly="true" />
-		<h:form id="login">
-			<p:fieldset legend="Login">
+		<h:form id="usuario">
+			<p:fieldset legend="Dados do Usuario">
 				<h:panelGrid columns="3">
 					<p:outputLabel value="Email:" for="email" />
-					<p:inputText id="email" value="#{loginBean.usuario.email}">
-						<f:passThroughAttribute name="type" value="email" />
+					<p:inputText id="email" value="#{usuarioBean.usuario.email}" required="true"
+						validatorMessage="Email inválido">
+						<f:attribute name="type" value="email" />
+						<f:passThroughAttribute name="placeholder" value="Email do usuario" />
+						<f:validateRegex pattern=".+@.+" />
+						<f:ajax event="blur" render="messageEmail" />
 					</p:inputText>
 					<p:message for="email" id="messageEmail" />
 					<p:outputLabel value="Senha:" for="senha" />
-					<p:password id="senha" value="#{loginBean.usuario.senha}" feedback="true" />
+					<p:password id="senha" value="#{usuarioBean.usuario.senha}" feedback="true" required="true" />
 					<p:message for="senha" id="messageSenha" />
-					<p:commandButton value="Efetue Login" action="#{loginBean.efetuaLogin}" update="@form"
-						process="@form" />
-					<p:commandButton value="Novo usuário" action="novo_usuario" />
+					<p:commandButton value="Gravar" action="#{usuarioBean.gravarNovo}" process="@form" />
 				</h:panelGrid>
 			</p:fieldset>
 		</h:form>
