@@ -5,15 +5,17 @@ public class Usuario extends BaseEntity {
 	private Long id;
 	private String email;
 	private String senha;
+	private boolean newsletter;
 
 	public Usuario() {
-		this("", "");
+		this("", "",false);
 	}
 
-	public Usuario(String email, String senha) {
+	public Usuario(String email, String senha, boolean newsletter) {
 		super();
 		this.email = email;
 		this.senha = senha;
+		this.newsletter = newsletter;
 	}
 
 	public String getEmail() {
@@ -40,5 +42,13 @@ public class Usuario extends BaseEntity {
 
 	public void setSenha(String senha) {
 		this.senha = senha;
+	}
+
+	public boolean isNewsletter() {
+		return newsletter;
+	}
+
+	public void setNewsletter(boolean newsletter) {
+		this.newsletter = newsletter;
 	}
 }

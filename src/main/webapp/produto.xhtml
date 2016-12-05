@@ -33,12 +33,25 @@
 				</p:column>
 				<f:facet name="footer">
 					<h:outputLabel value="Total carrinho:" />
-						 <h:outputText value="#{produtoBean.carrinho.total}">
+					<h:outputText value="#{produtoBean.carrinho.total}">
 						<f:convertNumber type="currency" pattern="R$ #0.00"
 							currencySymbol="R$" locale="pt_BR" />
 					</h:outputText>
 				</f:facet>
 			</p:dataTable>
+			<br />
+			<p:carousel value="#{produtoBean.maisVendidos}"
+				headerText="Mais vendidos" var="produto"
+				itemStyle="text-align:center" responsive="true">
+				<p:panelGrid columns="2" style="width:100%;margin:10px 0px"
+					columnClasses="label,value" layout="grid"
+					styleClass="ui-panelgrid-blank">
+					<f:facet name="header">
+						<p:graphicImage url="#{produto.imagem}" height="50" />
+					</f:facet>
+					<h:outputText value="#{produto.nome}" />
+				</p:panelGrid>
+			</p:carousel>
 		</h:form>
 	</ui:define>
 </ui:composition>

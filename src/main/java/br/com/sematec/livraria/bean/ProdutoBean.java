@@ -1,5 +1,7 @@
 package br.com.sematec.livraria.bean;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -35,6 +37,12 @@ public class ProdutoBean {
 			this.produtos = ProdutoDAO.getInstance().listaTodos();
 		}
 		return produtos;
+	}
+	
+	public List<Produto> getMaisVendidos(){
+		List<Produto> maisVendidos = new ArrayList<Produto>(produtos); 
+		Collections.shuffle(maisVendidos);
+		return maisVendidos;
 	}
 
 	public Long getProdutoId() {
