@@ -36,11 +36,29 @@ public class Carrinho extends BaseEntity {
 	}
 
 	public void adicionaProduto(Produto produto) {
-		Item item = new Item(produto, 1);
-		itens.add(item);
-		total = total.add(item.getTotal());
+		int index = 0;
+		boolean existe = false;
+		for (Item item : itens) {
+			if (item.getIdProduto() == produto.getId()) {
+				Item itemNovo = new Item(produto, item.getQuantidade() + 1);
+				itens.add(itemNovo);
+				itens.remove(index);
+				total = total.subtract(item.getTotal());
+				total = total.add(itemNovo.getTotal());
+				existe = true;
+				break;
+			}
+			index++;
+		}
+		if (!existe) {
+			Item item = new Item(produto, 1);
+			itens.add(item);
+			total = total.add(item.getTotal());
+		}
+
 	}
-	public void removeProduto(Item item){
+
+	public void removeProduto(Item item) {
 		itens.remove(item);
 		total = total.subtract(item.getTotal());
 	}

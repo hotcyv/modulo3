@@ -24,11 +24,12 @@
 						<f:convertNumber type="currency" pattern="R$ #0.00"
 							currencySymbol="R$" locale="pt_BR" />
 					</h:outputText>
+
 				</p:column>
 				<p:column headerText="Adicionar">
 					<p:commandButton icon="fa fa-fw fa-plus"
 						action="#{produtoBean.adicionarItemCarrinho(produto)}"
-						process="@this" update="@form">
+						process="@this" update="@form messages">
 					</p:commandButton>
 				</p:column>
 				<f:facet name="footer">

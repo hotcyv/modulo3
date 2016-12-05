@@ -3,6 +3,8 @@ package br.com.sematec.livraria.bean;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -51,6 +53,9 @@ public class ProdutoBean {
 
 	public void adicionarItemCarrinho(Produto produto) {
 		carrinho.adicionaProduto(ProdutoDAO.getInstance().buscaPorId(produto.getId()));
+		FacesContext context = FacesContext.getCurrentInstance();
+		context.getExternalContext().getFlash().setKeepMessages(false);
+		context.addMessage(null, new FacesMessage("Produto adicionado ao carrinho!"));
 
 	}
 
