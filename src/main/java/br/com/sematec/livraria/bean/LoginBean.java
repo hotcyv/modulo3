@@ -3,7 +3,6 @@ package br.com.sematec.livraria.bean;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
 import br.com.sematec.livraria.dao.CarrinhoDAO;
@@ -16,7 +15,6 @@ import br.com.sematec.livraria.modelo.Usuario;
 public class LoginBean {
 	private Usuario usuario = new Usuario();
 	private Carrinho carrinho;
-	private UsuarioDAO usuarioDao;
 
 	public String deslogar() {
 		FacesContext context = FacesContext.getCurrentInstance();
