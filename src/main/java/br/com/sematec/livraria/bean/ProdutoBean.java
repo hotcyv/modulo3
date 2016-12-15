@@ -20,7 +20,7 @@ public class ProdutoBean {
 	private Long produtoId;
 	private List<Produto> produtos;
 	private Carrinho carrinho;
-	
+
 	public ProdutoBean() {
 		FacesContext context = FacesContext.getCurrentInstance();
 		carrinho = (Carrinho) context.getExternalContext().getSessionMap().get("carrinho");
@@ -35,14 +35,13 @@ public class ProdutoBean {
 	}
 
 	public List<Produto> getProdutos() {
-		if (this.produtos == null) {
-			this.produtos = ProdutoDAO.getInstance().listaTodos();
-		}
+		this.produtos = ProdutoDAO.getInstance().listaTodos();
+
 		return produtos;
 	}
-	
-	public List<Produto> getMaisVendidos(){
-		List<Produto> maisVendidos = new ArrayList<Produto>(produtos); 
+
+	public List<Produto> getMaisVendidos() {
+		List<Produto> maisVendidos = new ArrayList<Produto>(produtos);
 		Collections.shuffle(maisVendidos);
 		return maisVendidos;
 	}

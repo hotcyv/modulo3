@@ -2,28 +2,39 @@ package br.com.sematec.livraria.modelo;
 
 import java.math.BigDecimal;
 
-import br.com.sematec.livraria.dao.ProdutoDAO;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
 
 public class Item extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
+
 	private Long id;
-	private Long idProduto;
+	private Produto produto;
 	private Integer quantidade;
 	private BigDecimal total;
 
 	public Item(Produto produto, Integer quantidade) {
-		this.idProduto = produto.getId();
+		this.produto = produto;
 		this.quantidade = quantidade;
 		this.total = produto.getPreco().multiply(BigDecimal.valueOf(quantidade));
 	}
-
-	public Long getIdProduto() {
-		return idProduto;
+	
+	public Item(){
+		this(null,0);
 	}
 
-	public void setIdProduto(Long idProduto) {
-		this.idProduto = idProduto;
+	public Produto getProduto() {
+		return produto;
+	}
+
+	public void setProduto(Produto produto) {
+		this.produto = produto;
 	}
 
 	public Integer getQuantidade() {
@@ -50,9 +61,5 @@ public class Item extends BaseEntity {
 	@Override
 	public Long getId() {
 		return id;
-	}
-
-	public Produto getProduto() {
-		return ProdutoDAO.getInstance().buscaPorId(this.idProduto);
 	}
 }

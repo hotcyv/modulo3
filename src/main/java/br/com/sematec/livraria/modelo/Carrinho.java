@@ -39,7 +39,7 @@ public class Carrinho extends BaseEntity {
 		int index = 0;
 		boolean existe = false;
 		for (Item item : itens) {
-			if (item.getIdProduto() == produto.getId()) {
+			if (item.getProduto().getId() == produto.getId()) {
 				Item itemNovo = new Item(produto, item.getQuantidade() + 1);
 				itens.add(itemNovo);
 				itens.remove(index);
