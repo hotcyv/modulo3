@@ -18,6 +18,8 @@ public class LoginBean {
 
 	public String deslogar() {
 		FacesContext context = FacesContext.getCurrentInstance();
+		Carrinho carrinho= (Carrinho) context.getExternalContext().getSessionMap().get("carrinho");
+		CarrinhoDAO.getInstance().atualiza(carrinho);
 		context.getExternalContext().getSessionMap().remove("usuarioLogado");
 		context.getExternalContext().getSessionMap().remove("carrinho");
 		return "login?faces-redirect=true";
@@ -29,7 +31,7 @@ public class LoginBean {
 		Usuario usuarioDao = UsuarioDAO.getInstance().getUsuario(this.usuario);
 		if (usuarioDao != null) {
 			context.getExternalContext().getSessionMap().put("usuarioLogado", this.usuario);
-			carrinho = CarrinhoDAO.getInstance().adicionaCarrinho(usuarioDao.getId().toString());
+			carrinho = CarrinhoDAO.getInstance().adicionaCarrinho(usuarioDao);
 			context.getExternalContext().getSessionMap().put("carrinho", carrinho);
 			System.out.println(carrinho.getId());
 			return "produto?faces-redirect=true";

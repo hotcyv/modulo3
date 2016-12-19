@@ -6,15 +6,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 
-
+@Entity
 public class Item extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
-
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
+	@ManyToOne
 	private Produto produto;
 	private Integer quantidade;
 	private BigDecimal total;
@@ -26,7 +27,7 @@ public class Item extends BaseEntity {
 	}
 	
 	public Item(){
-		this(null,0);
+		this(new Produto(),0);
 	}
 
 	public Produto getProduto() {

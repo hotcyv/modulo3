@@ -2,19 +2,35 @@ package br.com.sematec.livraria.modelo;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
+@Entity
 public class Carrinho extends BaseEntity {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
-	private ArrayList<Item> itens;
+	@OneToOne
+	private Usuario usuario;
+	@OneToMany(cascade = {CascadeType.ALL})
+	private List<Item> itens;
 	private BigDecimal total;
 
 	public Carrinho() {
-		this(new ArrayList<Item>(), new BigDecimal(0.0));
+		this(new Usuario(),new ArrayList<Item>(), new BigDecimal(0.0));
 	}
 
-	public Carrinho(ArrayList<Item> itens, BigDecimal total) {
+	public Carrinho(Usuario usuario,List<Item> itens, BigDecimal total) {
+		this.usuario = usuario;
 		this.itens = itens;
 		this.total = total;
 	}
@@ -27,7 +43,7 @@ public class Carrinho extends BaseEntity {
 		this.total = total;
 	}
 
-	public ArrayList<Item> getItens() {
+	public List<Item> getItens() {
 		return itens;
 	}
 
@@ -72,6 +88,14 @@ public class Carrinho extends BaseEntity {
 	public void setId(Long id) {
 		this.id = id;
 
+	}
+
+	public Usuario getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
 }

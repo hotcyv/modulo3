@@ -1,17 +1,16 @@
 package br.com.sematec.livraria.dao;
 
-import java.util.HashMap;
-import java.util.Map;
+import javax.persistence.NoResultException;
+import javax.persistence.Query;
 
 import br.com.sematec.livraria.modelo.Carrinho;
-import br.com.sematec.livraria.modelo.Item;
-import br.com.sematec.livraria.modelo.Produto;
+import br.com.sematec.livraria.modelo.Usuario;
 
 public class CarrinhoDAO extends DAO<Carrinho>{
 
-	private static CarrinhoDAO carrinho;
+	private static final long serialVersionUID = 1L;
 
-	private final static Map<String, Carrinho> CARRINHOS = new HashMap<>();
+	private static CarrinhoDAO carrinho;
 
 	private CarrinhoDAO() {
 		super(Carrinho.class);
@@ -24,27 +23,28 @@ public class CarrinhoDAO extends DAO<Carrinho>{
 		return carrinho;
 	}
 
-	private Carrinho buscaCarrinho(String idUsuario) {
-		Carrinho carrinho = null;
-		carrinho = CARRINHOS.get(idUsuario);
-		return carrinho;
-	}
+	private Carrinho buscaCarrinho(Long idUsuario) {
+		Carrinho carrinhoBanco = null;
+		Query query = em.createQuery("select c from Carrinho c where c.usuario.id=:pIdUsuario");
+		query.setParameter("pIdUsuario", idUsuario);
 
-	public Carrinho adicionaCarrinho(String idUsuario) {
-		Carrinho carrinho = this.buscaCarrinho(idUsuario);
-		if (carrinho == null) {
-			carrinho = new Carrinho();
-			if (!CARRINHOS.containsKey(idUsuario)) {
-				CARRINHOS.put(idUsuario, carrinho);
-			}
+		try {
+			carrinhoBanco = (Carrinho) query.getSingleResult();
+		} catch (NoResultException e) {
+			return null;
 		}
-		return carrinho;
+		return carrinhoBanco;
 	}
 
-	@Override
-	void geraDados() {
-		// TODO Auto-generated method stub
-		
+	public Carrinho adicionaCarrinho(Usuario usuario) {
+		Carrinho carrinhoBanco = this.buscaCarrinho(usuario.getId());
+		if (carrinhoBanco == null) {
+			carrinhoBanco = new Carrinho();
+			carrinhoBanco.setUsuario(usuario);
+			carrinhoBanco = (Carrinho) atualiza(carrinhoBanco);
+		}
+		return carrinhoBanco;
 	}
+
 
 }
